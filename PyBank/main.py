@@ -1,9 +1,9 @@
+# Dependencies
+
 import os
 import csv
 
 budgetdata_csv = os.path.join('..', 'Resources', '03-Python_Homework_Instructions_PyBank_Resources_budget_data.csv')
-
-# Functions
 
 # Read in CSV file
 with open(budgetdata_csv, 'r') as csvfile:
@@ -13,16 +13,39 @@ with open(budgetdata_csv, 'r') as csvfile:
 
     header = next(csvreader)
 
-    # Number of Months and Total from budget_data
+    # Reading each row
     
     count = 0
     total = 0
-    g_increase = 0.0
-    g_decrease = 0.0
+    profit_loss = 0.0
+    profit_loss_list = []
+    price_changes = []
 
     for row in csvreader:
         count += 1
         total += int(row[1])
+        profit_loss_list.append(int(row[1]))
+    
+    for x in range(len(profit_loss_list)-1):
+        profit_loss = (profit_loss_list[x+1] - profit_loss_list[x])
+        price_changes.append(profit_loss)
+    
+    average_change = round(sum(price_changes)/len(price_changes),2)
 
-    print(count)
-    print(total)
+    g_increase = max(price_changes)
+    g_decrease = min(price_changes)
+
+    # Print Statements
+
+    p = ("Financial Analysis\n"
+        "----------------------------\n"
+        f"Total Months: {count}\n"
+        f"Total: ${total}\n"
+        f"Average Change: ${average_change}\n"
+        f"Greatest Increase in Profits: ${g_increase}\n"
+        f"Greatest Decrease in Profits: ${g_decrease}\n")
+
+    print(p)
+
+    with open("budget_data.txt", "w+") as f:
+        f.write(p)
