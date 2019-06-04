@@ -13,7 +13,7 @@ with open(budgetdata_csv, 'r') as csvfile:
 
     header = next(csvreader)
 
-    # Reading each row
+    # Code
     
     count = 0
     total = 0
@@ -35,7 +35,7 @@ with open(budgetdata_csv, 'r') as csvfile:
     g_increase = max(price_changes)
     g_decrease = min(price_changes)
 
-    # Print Statements
+    # f-string and Print Statements
 
     p = ("Financial Analysis\n"
         "----------------------------\n"
@@ -43,7 +43,7 @@ with open(budgetdata_csv, 'r') as csvfile:
         f"Total: ${total}\n"
         f"Average Change: ${average_change}\n"
         f"Greatest Increase in Profits: ${g_increase}\n"
-        f"Greatest Decrease in Profits: ${g_decrease}\n")
+        f"Greatest Decrease in Profits: ${g_decrease}")
 
     print(p)
 

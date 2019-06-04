@@ -15,26 +15,44 @@ with open(electiondata_csv, 'r') as csvfile:
 
     header = next(csvreader)
 
-    # Reading each row
+    # Code
 
-    count = 0
     candidate_votes = []
     candidate_dict = {}
 
-    # Dictionary Method
-  
     for row in csvreader:
+        candidate_votes.append(row[2])
 
-        count += 1
-        candidate_vote.append(row[1])
+    total = len(candidate_votes)
 
-    for x in candidate_vote: 
+    for vote in candidate_votes: 
+        if vote in candidate_dict:
+            candidate_dict[vote] += 1
+        else:
+            candidate_dict[vote] = 1
 
-        if x not in candidate_list:
+    winning_candidate = max(candidate_dict, key=candidate_dict.get)
 
-            candidate_list.append(x)
+    # f- string and Print Statements
 
+    stats = ""
 
-    # Print Statements
-    print(count)
-    print(candidate_list)
+    for candidate in candidate_dict:
+        line = (f"{candidate}: {candidate_dict[candidate]} votes ({round((candidate_dict[candidate]/total)*100,2)}%)\n")
+        stats += line
+        
+    intro = ("Election Results\n"
+        "-------------------------\n"
+        f"Total Votes: {total}\n"
+        "-------------------------\n")
+
+    winner = ("-------------------------\n"
+        f"Winner: {winning_candidate}\n"
+        "-------------------------")
+
+    p = intro + stats + winner
+
+    print(p)
+
+    with open("election_data.txt", "w+") as f:
+        f.write(p)
