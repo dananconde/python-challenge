@@ -18,9 +18,11 @@ with open(electiondata_csv, 'r') as csvfile:
     # Reading each row
 
     count = 0
-    candidate_vote = []
-    candidate_list = [] 
-      
+    candidate_votes = []
+    candidate_dict = {}
+
+    # Dictionary Method
+  
     for row in csvreader:
 
         count += 1
@@ -35,4 +37,4 @@ with open(electiondata_csv, 'r') as csvfile:
 
     # Print Statements
     print(count)
-    
+    print(candidate_list)
